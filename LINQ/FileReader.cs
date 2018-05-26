@@ -86,5 +86,24 @@ namespace LINQ
                 Console.WriteLine();
             }
         }
+
+        public void searchByGenreAndPrice(string genre, double price)
+        {
+            var idGenreAndPrice = from idgp in xElement.Elements("book")
+                                  where (string)idgp.Element("genre") == genre
+                                  && (double)idgp.Element("price") > price
+                                  select idgp;
+            idGenreAndPrice = idGenreAndPrice.OrderBy(item => item.Element("title").Value);
+
+            foreach (XElement xEle in idGenreAndPrice)
+            {
+                Console.WriteLine("Autor: " + xEle.Element("author").Value);
+                Console.WriteLine("Tytuł: " + xEle.Element("title").Value);
+                Console.WriteLine("Kategoria: " + xEle.Element("genre").Value);
+                Console.WriteLine("Cena: " + xEle.Element("price").Value);
+                Console.WriteLine("------------");
+                Console.WriteLine();
+            }
+        }
     }
 }
